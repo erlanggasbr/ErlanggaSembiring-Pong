@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public Vector2 speed;
+    public Vector2 resetPosition;
 
     private Rigidbody2D rb;
 
@@ -19,5 +20,10 @@ public class BallController : MonoBehaviour
     void Update()
     {
         //transform.Translate(speed * Time.deltaTime);
+    }
+
+    public void ResetBall()
+    {
+        transform.position = new Vector2(resetPosition.x, resetPosition.y);
     }
 }
