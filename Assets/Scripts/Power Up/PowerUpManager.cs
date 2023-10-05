@@ -77,7 +77,7 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
-    //cobak2 ni semua yg dibawah :)
+    //switch unused power up with a new one
 
     public void RemoveRandomPowerUp()
     {

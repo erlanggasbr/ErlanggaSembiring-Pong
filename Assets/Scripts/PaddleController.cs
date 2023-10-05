@@ -10,13 +10,23 @@ public class PaddleController : MonoBehaviour
     public KeyCode upKey;
     public KeyCode downKey;
 
-    private string paddleSide;
+    private Vector3 paddleLength;
+    private float timer;
+    [SerializeField] private float duration;
+    public PUPadLengthUp powerUpLength;
+
+    private int normalSpeed;
+    public PUPadSpeedUp powerUpSpeed;
+
+    //private string paddleSide;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        PaddleSide();
+        //PaddleSide();
+        paddleLength = transform.localScale;
+        normalSpeed = speed;
     }
 
     // Update is called once per frame
@@ -24,6 +34,8 @@ public class PaddleController : MonoBehaviour
     {
         //move object
         MoveObject(GetInput());
+        PaddleLengthPowerUpDuration();
+        PaddleSpeedPowerUpDuration();
     }
 
     private Vector2 GetInput()
@@ -46,7 +58,7 @@ public class PaddleController : MonoBehaviour
         rb.velocity = movement;
     }
 
-    private void PaddleSide()
+    /*private void PaddleSide()
     {
         switch (upKey)
         {
@@ -59,6 +71,42 @@ public class PaddleController : MonoBehaviour
             default:
                 paddleSide = "";
                 break;
+        }
+    }*/
+
+    public void ActivatePUPaddleLengthUp(Vector3 paddleIncrement)
+    {
+        transform.localScale += paddleIncrement;
+    }
+
+    private void PaddleLengthPowerUpDuration()
+    {
+        if (paddleLength.y < transform.localScale.y)
+        {
+            timer += Time.deltaTime;
+            if (timer >= duration)
+            {
+                transform.localScale -= powerUpLength.paddleIncrement;
+                timer -= duration;
+            }
+        }
+    }
+
+    public void ActivatePUPaddleSpeedUp(int speedUp)
+    {
+        speed *= speedUp;
+    }
+
+    private void PaddleSpeedPowerUpDuration()
+    {
+        if (normalSpeed < speed)
+        {
+            timer += Time.deltaTime;
+            if (timer >= duration)
+            {
+                speed /= powerUpSpeed.speedUp;
+                timer -= duration;
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ public class BallController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private int speedUpCounter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +24,20 @@ public class BallController : MonoBehaviour
         //transform.Translate(speed * Time.deltaTime);
     }
 
-    public void ResetBall()
+    public void ResetBall(int ballDirection)
     {
-        rb.velocity = speed;
+        rb.velocity = speed * ballDirection;
         transform.position = new Vector2(resetPosition.x, resetPosition.y);
+
+        speedUpCounter = 0;
     }
 
     public void ActivatePUSpeedUp(float magnitude)
     {
-        rb.velocity *= magnitude;
+        if (speedUpCounter < 3)
+        {
+            rb.velocity *= magnitude;
+            speedUpCounter++;
+        }
     }
 }

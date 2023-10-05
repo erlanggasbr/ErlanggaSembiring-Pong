@@ -33,7 +33,7 @@ public class ScoreManager : MonoBehaviour
     public void AddRightScore(int increment)
     {
         rightScore += increment;
-        ball.ResetBall();
+        ball.ResetBall(-1);
 
         if (rightScore >= maxScore)
         {
@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
     public void AddLeftScore(int increment)
     {
         leftScore += increment;
-        ball.ResetBall();
+        ball.ResetBall(1);
 
         if (leftScore >= maxScore)
         {
